@@ -1,0 +1,5 @@
+.navbar .hide-dd-icon > a::after {
+    display: none !important;
+  }
+ 
+
