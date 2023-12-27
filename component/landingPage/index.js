@@ -17,4 +17,5 @@ import ReviewRating from "./reviewRating"
     </HeadPage>
     )
 }
+
 export default LandingPage;

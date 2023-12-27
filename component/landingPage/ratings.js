@@ -5,15 +5,26 @@ function Ratings({ stars }) {
   const ratingsArr = () => {
     const arr = [];
 
-    for (let num = 0; num < Math.ceil(stars); num++) {
-      if (stars - num < 1) {
+    // for (let num = 0; num < Math.ceil(stars); num++) {
+    //   if (stars - num < 1) {
+    //     arr.push({
+    //       star: "half",
+    //     });
+    //   } else {
+    //     arr.push({
+    //       star: "full",
+    //     });
+    //   }
+    // }
+    for (let num =1; num<=stars ;num++){
+      if (Number.isInteger(num)) {
         arr.push({
-          star: "half",
-        });
+               star: "half",
+            });
       } else {
         arr.push({
-          star: "full",
-        });
+               star: "full",
+            })
       }
     }
     return arr;

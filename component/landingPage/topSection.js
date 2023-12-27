@@ -9,7 +9,7 @@ import { FaEnvelope, FaCheckCircle } from "react-icons/fa";
 import NewStudentImg from "./newStudentImg";
 import DotSvg from "./dotSvg";
 import styles from "./styles.module.css";
-import BADGETITLES from "@/utils/constants/solidbadgeTitle";
+import SolidBadgeTitle from "./solidBadgeTitle";
 
 function TopSection() {
   return (
@@ -57,20 +57,7 @@ function TopSection() {
               students. Taught by experts to help you acquire new skills.
             </p>
 
-            <ul className="list-inline position-relative justify-content-center justify-content-lg-start mb-4">
-              <li className="list-inline-item me-2">
-                <BiSolidBadgeCheck className="h5 me-1" />
-                {BADGETITLES[1]}
-              </li>
-              <li className="list-inline-item me-2">
-                <BiSolidBadgeCheck className="h5 me-1" />
-                {BADGETITLES[2]}
-              </li>
-              <li className="list-inline-item">
-                <BiSolidBadgeCheck className="h5 me-1" /> 
-                {BADGETITLES[3]}
-              </li>
-            </ul>
+             <SolidBadgeTitle />
 
             <div className="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
               <a
