@@ -1,72 +1,42 @@
-import React from "react";
+import React from 'react'
 import HeadPage from "../layout/headPage";
 import TITLES from "@/utils/constants/title";
 import styles from "./styles.module.css";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { Field, Formik } from "formik";
-
-
-// import {ToastContainer} from "react-bootstrap";
-
-import { useRouter } from "next/router";
-
 import * as yup from "yup";
 import InputField from "../fields/inputFeild";
-import { loginService } from "@/services/authService";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { FaArrowRight,FaArrowLeft,FaLock } from "react-icons/fa";
-  
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 
 const defaultValues = {
   email: "",
   password: "",
+  confirmPassword:"",
+  termsAndConditions:false
 };
 
-function Login() {
-  const router = useRouter();
 
-  const handleFormSubmit = async (values) => {
-    const res = await loginService({
-      password: values.password,
-      email: values.email,
-    });
-
-    if (res.success) {
-      // window.location = "/users";
-      router.replace("/users");
-    } else {
-      toast.error(res.message);
-    }
-    // await axios
-    //   .post("https://reqres.in/api/login", {
-    //     email: values.email,
-    //     password: values.password,
-    //   })
-    //   .then(function (response) {
-    //     localStorage.setItem("userAuthToken", response.data.token);
-    //     window.location = "/users";
-    //   })
-    //   .catch(function (error) {
-    //     if (error?.response?.status == 400) {
-    //       alert(error.response?.data?.error);
-    //     } else {
-    //       alert(error.message);
-    //     }
-    //   });
-  };
+function SignupPage() {
 
   const validationSchema = yup.object().shape({
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(20),
+    confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+  termsAndConditions: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+
   
-    // terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
+    //terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
+  
+ 
+
+  
   return (
-    <>
-      <HeadPage title={TITLES.login}>
+    <HeadPage title={TITLES.sigin}>
         <section>
           <div className="container my-3 pt-5">
             <div className="row d-flex justify-content-center mt-3">
@@ -76,7 +46,7 @@ function Login() {
                 </Alert> */}
                 <Formik
                   validationSchema={validationSchema}
-                  onSubmit={handleFormSubmit}
+                  //onSubmit={handleFormSubmit}
                   initialValues={defaultValues}
                 >
                   {({ handleSubmit, isSubmitting }) => {
@@ -90,13 +60,12 @@ function Login() {
                               <h2
                                 className={`${styles.contactFormHeading} text-center`}
                               >
-                                Get In Touch
+                                Signup
                               </h2>
                               <p
                                 className={`${styles.contactFormParagh} text-center text-dark`}
                               >
-                                faucibus ultrices facilisis odio amet, luctus
-                                vehicula, turpis elit. Sed placerat.
+                                Welcome to signup
                               </p>
                             </div>
                             <div className="col-12 my-2">
@@ -116,6 +85,24 @@ function Login() {
                                 component={InputField}
                               />
                             </div>
+                            <div className="col-12 my-2">
+                              <Field
+                                type="password"
+                                name="confirmPassword"
+                                label="confirmPassword"
+                                placeholder=" confirm password"
+                                component={InputField}
+                              />
+                            </div>
+                            <div className="col-12 my-2">
+                          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                            <Form.Check
+                              type="checkbox"
+                              name="terms"
+                              label="I accept the terms and conditions"
+                            />
+                          </Form.Group>
+                        </div>
 
                             <div className="col-12 mx-auto my-2 mt-4">
                               <Button
@@ -134,18 +121,18 @@ function Login() {
                                     </span>
                                   </Spinner>
                                 ) : (
-                                  "Login"
+                                  "Signup"
                                 )}
                               </Button>
                             </div>
 
                             <div className="col-12 mt-4 d-flex justify-content-between">
                               <a href="./index.html">
-                                  <FaArrowLeft/>
+                             <FaArrowLeft/> back
                               </a>
                               <a href="signup.html">
                                 {" "}
-                                Singup <FaArrowRight/>
+                                login <FaArrowRight></FaArrowRight>
                               </a>
                             </div>
                           </div>
@@ -159,9 +146,8 @@ function Login() {
           </div>
         </section>
       </HeadPage>
-      <ToastContainer/>
-    </>
-  );
+     
+  )
 }
 
-export default Login;
+export default SignupPage
